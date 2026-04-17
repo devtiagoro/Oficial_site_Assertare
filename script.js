@@ -3,6 +3,7 @@ const navToggle = document.getElementById('navToggle');
 const navMenu = document.getElementById('navMenu');
 const navLinks = document.querySelectorAll('.nav__menu a');
 const year = document.getElementById('year');
+const counters = document.querySelectorAll('[data-counter]');
 
 // efeito de scroll no header
 if (header) {
@@ -32,6 +33,65 @@ if (navLinks.length && navMenu && navToggle) {
 // atualizar ano automático no footer
 if (year) {
   year.textContent = new Date().getFullYear();
+}
+
+function easeOutQuad(t) {
+  return 1 - (1 - t) * (1 - t);
+}
+
+function animateCounter(el) {
+  if (el.dataset.animated === 'true') {
+    return;
+  }
+
+  const start = Number(el.dataset.start || 0);
+  const target = Number(el.dataset.target || 0);
+  const suffix = el.dataset.suffix || '';
+  const duration = 2000;
+  const startTime = performance.now();
+
+  el.dataset.animated = 'true';
+
+  function update(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const easedProgress = easeOutQuad(progress);
+    const currentValue = Math.floor(start + (target - start) * easedProgress);
+
+    el.innerText = `${currentValue}${suffix}`;
+
+    if (progress < 1) {
+      requestAnimationFrame(update);
+      return;
+    }
+
+    el.innerText = `${target}${suffix}`;
+  }
+
+  requestAnimationFrame(update);
+}
+
+if (counters.length) {
+  const counterObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        animateCounter(entry.target);
+        observer.unobserve(entry.target);
+      });
+    },
+    {
+      threshold: 0.35,
+      rootMargin: '0px 0px -40px 0px',
+    }
+  );
+
+  counters.forEach((counter) => {
+    counterObserver.observe(counter);
+  });
 }
 
 // modal de imagem
