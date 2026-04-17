@@ -1,10 +1,11 @@
-const header = document.getElementById('header');
+﻿const header = document.getElementById('header');
 const navToggle = document.getElementById('navToggle');
 const navMenu = document.getElementById('navMenu');
 const navLinks = document.querySelectorAll('.nav__menu a');
 const year = document.getElementById('year');
 const counters = document.querySelectorAll('[data-counter]');
 const tickerTracks = document.querySelectorAll('.ticker-track');
+const serviceCards = document.querySelectorAll('.service-card');
 
 // efeito de scroll no header
 if (header) {
@@ -123,6 +124,51 @@ if (counters.length) {
   counters.forEach((counter) => {
     counterObserver.observe(counter);
   });
+}
+
+// No mobile, os cards de serviços abrem por toque em vez de depender de hover.
+function setServiceCardState(card, isExpanded) {
+  card.classList.toggle('is-active', isExpanded);
+  card.setAttribute('aria-expanded', String(isExpanded));
+}
+
+function collapseServiceCards(activeCard = null) {
+  serviceCards.forEach((card) => {
+    if (card === activeCard) {
+      return;
+    }
+
+    setServiceCardState(card, false);
+  });
+}
+
+if (serviceCards.length) {
+  const mobileServicesQuery = window.matchMedia('(hover: none), (pointer: coarse), (max-width: 680px)');
+
+  serviceCards.forEach((card) => {
+    card.addEventListener('click', () => {
+      if (!mobileServicesQuery.matches) {
+        return;
+      }
+
+      const willExpand = card.getAttribute('aria-expanded') !== 'true';
+
+      collapseServiceCards(willExpand ? card : null);
+      setServiceCardState(card, willExpand);
+    });
+  });
+
+  const syncServiceCards = () => {
+    if (!mobileServicesQuery.matches) {
+      collapseServiceCards();
+    }
+  };
+
+  if (typeof mobileServicesQuery.addEventListener === 'function') {
+    mobileServicesQuery.addEventListener('change', syncServiceCards);
+  } else if (typeof mobileServicesQuery.addListener === 'function') {
+    mobileServicesQuery.addListener(syncServiceCards);
+  }
 }
 
 // modal de imagem
