@@ -4,6 +4,7 @@ const navMenu = document.getElementById('navMenu');
 const navLinks = document.querySelectorAll('.nav__menu a');
 const year = document.getElementById('year');
 const counters = document.querySelectorAll('[data-counter]');
+const tickerTracks = document.querySelectorAll('.ticker-track');
 
 // efeito de scroll no header
 if (header) {
@@ -33,6 +34,36 @@ if (navLinks.length && navMenu && navToggle) {
 // atualizar ano automático no footer
 if (year) {
   year.textContent = new Date().getFullYear();
+}
+
+function syncTickerLoop(track) {
+  const firstGroup = track.querySelector('.ticker__group');
+
+  if (!firstGroup) {
+    return;
+  }
+
+  track.style.setProperty('--ticker-loop-width', `${firstGroup.getBoundingClientRect().width}px`);
+}
+
+if (tickerTracks.length) {
+  tickerTracks.forEach((track) => {
+    const groups = track.querySelectorAll('.ticker__group');
+
+    if (groups.length === 1) {
+      const clone = groups[0].cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      track.appendChild(clone);
+    }
+
+    syncTickerLoop(track);
+  });
+
+  window.addEventListener('resize', () => {
+    tickerTracks.forEach((track) => {
+      syncTickerLoop(track);
+    });
+  });
 }
 
 function easeOutQuad(t) {

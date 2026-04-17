@@ -10,6 +10,7 @@
   --accent-soft:#edf5ff;
   --shadow: 0 18px 40px rgba(31, 120, 255, .08);
   --radius: 18px;
+  --ticker-height: clamp(28px, 1vw, 44px);
 }
 
 * {
@@ -162,11 +163,11 @@ a {
 
 .hero{
   position: relative;
-  height: 100vh;
-  height: 100svh;
-  height: 100dvh;
-  min-height: 100vh;
-  min-height: 100svh;
+  height: calc(100vh - var(--ticker-height));
+  height: calc(100svh - var(--ticker-height));
+  height: calc(100dvh - var(--ticker-height));
+  min-height: calc(100vh - var(--ticker-height));
+  min-height: calc(100svh - var(--ticker-height));
   overflow: hidden;
   isolation: isolate;
   background: #081523;
@@ -211,7 +212,7 @@ a {
 
 .hero__content {
   width: min(100%, 750px);
-  max-height: calc(100svh - clamp(40px, 8vh, 80px));
+  max-height: calc(100svh - var(--ticker-height) - clamp(40px, 8vh, 80px));
   padding: clamp(24px, 3vw, 40px);
   border-radius: 28px;
   background: rgba(255, 255, 255, 0.1);
@@ -270,6 +271,91 @@ a {
   min-height: 52px;
   max-width: 100%;
   padding: 14px 22px;
+}
+
+/* Full-bleed marquee below the hero for continuous motion without gaps. */
+.ticker{
+  position: relative;
+  width: 100%;
+  height: var(--ticker-height);
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  background: rgba(8, 21, 35, 0.94);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ticker__viewport{
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Track uses duplicated content so translateX(-50%) creates a seamless loop. */
+.ticker-track{
+  width: max-content;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  will-change: transform;
+  animation: ticker-scroll 38s linear infinite;
+}
+
+.ticker.reverse .ticker-track{
+  animation-direction: reverse;
+}
+
+.ticker:hover .ticker-track{
+  animation-play-state: paused;
+}
+
+.ticker__group{
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: clamp(18px, 1vw, 14px);
+  padding-right: clamp(8px, 1vw, 14px);
+}
+
+.ticker__item{
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: clamp(11px, 1.1vw, 14px);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+/* Soft edge fades keep the marquee premium and less visually aggressive. */
+.ticker__fade{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(36px, 6vw, 120px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ticker__fade--left{
+  left: 0;
+  background: linear-gradient(90deg, rgba(8, 21, 35, 1) 0%, rgba(8, 21, 35, 0) 100%);
+}
+
+.ticker__fade--right{
+  right: 0;
+  background: linear-gradient(270deg, rgba(8, 21, 35, 1) 0%, rgba(8, 21, 35, 0) 100%);
+}
+
+@keyframes ticker-scroll{
+  from{
+    transform: translateX(0);
+  }
+  to{
+    transform: translateX(calc(-1 * var(--ticker-loop-width, 50%)));
+  }
 }
 
 .counters{
@@ -587,7 +673,7 @@ a {
   .counters__grid{grid-template-columns: repeat(2, minmax(0, 1fr));}
   .hero__content{
     width: min(100%, 540px);
-    max-height: calc(100svh - 48px);
+    max-height: calc(100svh - var(--ticker-height) - 24px);
   }
   .hero__overlay{
     background:
@@ -626,11 +712,15 @@ a {
   .feature-grid{grid-template-columns: 1fr;}
   .feature-grid--4{grid-template-columns: 1fr;}
   .callout{flex-direction:column; align-items:flex-start;}
+  :root{
+    --ticker-height: 48px;
+  }
   .hero{
-    height: auto;
-    min-height: 100vh;
-    min-height: 100svh;
-    min-height: 100dvh;
+    height: calc(100vh - var(--ticker-height));
+    height: calc(100svh - var(--ticker-height));
+    height: calc(100dvh - var(--ticker-height));
+    min-height: calc(100vh - var(--ticker-height));
+    min-height: calc(100svh - var(--ticker-height));
   }
   .hero__container{
     display: grid;
@@ -641,10 +731,10 @@ a {
   }
   .hero__content{
     width: 100%;
-    max-height: none;
+    max-height: calc(100svh - var(--ticker-height) - 20px);
     text-align: center;
     border-radius: 24px;
-    align-content: start;
+    align-content: center;
   }
   .hero__brand{justify-content: center;}
   .hero__copy{justify-items: center;}
@@ -653,7 +743,17 @@ a {
   .hero__actions{
     justify-content: center;
   }
+  .ticker__item{
+    font-size: 13px;
+  }
   .counters__grid{grid-template-columns: 1fr;}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .ticker-track{
+    animation: none;
+    transform: translateX(0);
+  }
 }
 
 .floating-cta{
