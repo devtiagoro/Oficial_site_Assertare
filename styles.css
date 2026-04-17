@@ -149,7 +149,7 @@ a {
 .btn--primary{
   transform: translateY(-4px); 
   background-color: #fbfdff;
-  border-color: #081523;
+  border-color: #fbfdff;
   color: #15304f;
 }
 
@@ -281,7 +281,7 @@ a {
   display: grid;
   align-items: center;
   overflow: hidden;
-  background: rgba(8, 21, 35, 0.94);
+  background: rgba(1, 13, 26, 0.94);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -322,7 +322,7 @@ a {
   display: inline-flex;
   align-items: center;
   padding-inline: 0;
-  color: rgba(255, 255, 255, 0.88);
+  color: rgb(255, 255, 255);
   font-size: clamp(11px, 1.1vw, 14px);
   font-weight: 400;
   letter-spacing: 0.01em;
