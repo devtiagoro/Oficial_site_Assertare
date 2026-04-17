@@ -277,7 +277,7 @@ a {
 }
 
 .counters__header{
-  max-width: 720px;
+  max-width: 800 px;
   margin: 0 auto clamp(24px, 4vw, 36px);
   text-align: center;
 }
