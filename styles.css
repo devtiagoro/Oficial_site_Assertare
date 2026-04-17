@@ -599,10 +599,10 @@ a {
   inset: 16px 5% auto;
   height: 180px;
   background:
-    radial-gradient(circle at 12% 18%, rgba(126, 184, 255, 0.22), transparent 42%),
-    radial-gradient(circle at 85% 16%, rgba(21, 48, 79, 0.12), transparent 34%);
+    radial-gradient(circle at 12% 18%, rgba(126, 184, 255, 0.16), transparent 40%),
+    radial-gradient(circle at 85% 16%, rgba(21, 48, 79, 0.08), transparent 32%);
   filter: blur(22px);
-  opacity: 0.9;
+  opacity: 0.62;
   pointer-events: none;
 }
 
@@ -683,8 +683,8 @@ a {
   inset: 0;
   border-radius: inherit;
   background:
-    radial-gradient(circle at top left, rgba(126, 184, 255, 0.22), transparent 36%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 100%);
+    radial-gradient(circle at top left, rgba(126, 184, 255, 0.14), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 100%);
   opacity: 0;
   transition: opacity .32s ease;
   pointer-events: none;
@@ -766,8 +766,8 @@ a {
   outline-offset: 3px;
 }
 
-.services-grid:hover .service-card{
-  opacity: 0.7;
+.services-grid:hover .service-card:not(:hover):not(.is-active):not([aria-expanded="true"]){
+  opacity: 0.62;
   transform: scale(0.985);
   filter: saturate(0.85);
 }
@@ -778,8 +778,7 @@ a {
   z-index: 20;
   min-height: 178px;
   transform: translateY(-7px) scale(1.03);
-  background:
-    linear-gradient(180deg, rgba(18, 47, 78, 0.98), rgba(8, 21, 35, 0.98));
+  background: #081523;
   box-shadow:
     0 26px 56px rgba(6, 20, 34, 0.28),
     0 0 0 1px rgba(126, 184, 255, 0.18);
@@ -792,7 +791,7 @@ a {
 
 .service-card.is-active::before,
 .service-card[aria-expanded="true"]::before{
-  opacity: 1;
+  opacity: 0;
 }
 
 .service-card.is-active::after,
@@ -830,8 +829,7 @@ a {
     z-index: 20;
     min-height: 178px;
     transform: translateY(-7px) scale(1.03);
-    background:
-      linear-gradient(180deg, rgba(18, 47, 78, 0.98), rgba(8, 21, 35, 0.98));
+    background: #081523;
     box-shadow:
       0 26px 56px rgba(6, 20, 34, 0.28),
       0 0 0 1px rgba(126, 184, 255, 0.18);
@@ -843,7 +841,7 @@ a {
   }
 
   .service-card:hover::before{
-    opacity: 1;
+    opacity: 0;
   }
 
   .service-card:hover::after{
@@ -865,7 +863,7 @@ a {
 
   .service-card:hover .service-card__description{
     max-height: 14em;
-    margin-top: 10px;
+    margin-top: 30px;
     opacity: 1;
     transform: translateY(0);
     color: rgba(255, 255, 255, 0.82);
