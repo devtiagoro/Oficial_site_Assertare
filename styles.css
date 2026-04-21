@@ -1845,7 +1845,7 @@ a {
   }
   .hero__content{
     width: 100vw;
-    height: 55vh;
+    height: 50vh;
     min-height: clamp(340px, 52svh, 470px);
     max-height: calc(100svh - var(--ticker-height) - 32px);
     padding: clamp(24px, 6vw, 34px) clamp(20px, 6vw, 30px);
