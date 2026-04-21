@@ -1810,20 +1810,38 @@ a {
     min-height: calc(100vh - var(--ticker-height));
     min-height: calc(100svh - var(--ticker-height));
   }
+  .hero__overlay{
+    inset: 0 0 auto;
+    height: 60vh;
+    height: 60svh;
+    height: 60dvh;
+    background:
+      linear-gradient(180deg, rgba(7, 18, 31, 0.74) 0%, rgba(7, 18, 31, 0.48) 68%, rgba(7, 18, 31, 0.12) 100%);
+  }
   .hero__container{
     display: grid;
   }
   .hero__grid{
-    padding-block: clamp(20px, 4svh, 28px);
-    justify-items: stretch;
+    min-height: 60vh;
+    min-height: 60svh;
+    min-height: 60dvh;
+    padding-block: clamp(18px, 3.5svh, 28px);
+    align-items: center;
+    justify-items: center;
   }
   .hero__content{
     width: 90%;
-    max-height: calc(100svh - var(--ticker-height) - 20px);
+    max-width: 90%;
+    min-height: min(60vh - 36px, 430px);
+    min-height: min(60svh - 36px, 430px);
+    max-height: min(60vh - 24px, 460px);
+    max-height: min(60svh - 24px, 460px);
     padding: clamp(22px, 5vw, 30px);
     text-align: center;
     border-radius: 24px;
     align-content: center;
+    justify-self: center;
+    align-self: center;
   }
   .hero__brand{justify-content: center;}
   .hero__copy{
