@@ -1830,8 +1830,10 @@ a {
       linear-gradient(90deg, rgba(7, 18, 31, 0.14) 0%, rgba(7, 18, 31, 0.08) 100%);
   }
   .hero__container{
+    width: 100%;
     display: flex;
     height: 100%;
+    border: 1px solid green;
   }
 
   .hero__grid{
@@ -1839,14 +1841,15 @@ a {
 
 
     width: 100%;
-    padding-block: clamp(18px, 4.5svh, 30px);
+    padding-block: clamp(12px, 2.5svh, 300px);
     padding-inline: 0;
     display: flex;
     justify-content: center;
     align-items: flex-start;
   }
   .hero__content{
-    height: 60vh;
+    width: 100vw;
+    height: 55vh;
     min-height: clamp(340px, 52svh, 470px);
     max-height: calc(100svh - var(--ticker-height) - 32px);
     padding: clamp(24px, 6vw, 34px) clamp(20px, 6vw, 30px);
