@@ -1913,7 +1913,7 @@ a {
     text-align: center;
   }
   .counter-card::before{
-    left: 50%;
+    left: 12%;
     transform: translateX(-50%);
   }
   .counter-card__value{
