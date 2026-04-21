@@ -744,7 +744,7 @@ a {
 
 .services-section__intro .muted{
   max-width: 580ch;
-  margin: 0 auto;
+  margin: 16px auto 0; 
   font-size: clamp(16px, 1.45vw, 19px);
   line-height: 1.7;
   color: rgba(21, 48, 79, 0.76);
@@ -1066,7 +1066,7 @@ a {
 
 .readiness__intro .muted,
 .results-premium__intro .muted{
-  margin: 0 auto;
+  margin: 16px auto 0; 
   max-width: 48ch;
   color: rgba(21, 48, 79, 0.74);
   font-size: clamp(16px, 1.45vw, 19px);
@@ -1421,9 +1421,9 @@ a {
   text-wrap: balance;
 }
 
-.process__intro .muted{
-  margin: 0 auto;
+.process__intro .muted{ 
   max-width: 46ch;
+  margin: 16px auto 0;
   color: rgba(21, 48, 79, 0.74);
   font-size: clamp(16px, 1.45vw, 19px);
 }
